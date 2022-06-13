@@ -1,3 +1,6 @@
+server:
+  port: 10000
+
 logging:
   file:
     name: ${user.dir}/log/test.log  # 로깅 파일 위치이다.

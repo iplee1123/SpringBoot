@@ -1,56 +1,49 @@
 package com.example.springboot.batch.scheduler;
 
 import com.example.springboot.batch.job.config.JobConfig;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
 @Component
-@EnableScheduling
+@RequiredArgsConstructor
 public class JobScheduler {
 
-    @Autowired
-    private JobLauncher jobLauncher;
-    @Autowired
-    private JobConfig jobConfig;
-    @Autowired
-    private Job jobWithTasklet;
-    @Autowired
-    private Job jobWithChunk;
+    private final JobLauncher jobLauncher;
+    private final JobConfig jobConfig;
+    private final Job jobWithTasklet;
+    private final Job jobWithChunk;
+    private final Job mybatisTestJob;
 
     @Scheduled(cron = "1 * * * * *")
     public void runJob() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 
         // spring batch meta table 생성을 위한 schema file
-        // ex) schema-h2.sqlR
+        // ex) schema-h2.sql
 
         Map<String, JobParameter> jobParametersMap = new HashMap<>();
+        // LocalDate startDate = LocalDate.now(ZoneId.of("Asia/Seoul"));
+        // jobParametersMap.put("startDate", new JobParameter(startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
-        String time = format.format(new Date());
-        jobParametersMap.put("date", new JobParameter(time));
-        jobParametersMap.put("name", new JobParameter(jobWithTasklet.getName()));
+        LocalDateTime startDate = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+        jobParametersMap.put("startDate", new JobParameter(startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
 
-//        JobParameters parameters = new JobParameters(jobParametersMap);
-//        JobExecution jobExecution = jobLauncher.run(jobWithTasklet, parameters);
-//        printLog(jobExecution);
-
-        jobParametersMap.put("name", new JobParameter(jobWithChunk.getName()));
+        jobParametersMap.put("jobName", new JobParameter(mybatisTestJob.getName()));
         JobParameters parameters = new JobParameters(jobParametersMap);
-        JobExecution jobExecution = jobLauncher.run(jobWithChunk, parameters);
+        JobExecution jobExecution = jobLauncher.run(mybatisTestJob, parameters);
         log.info("runJob End...");
       //  printLog(jobExecution);
     }

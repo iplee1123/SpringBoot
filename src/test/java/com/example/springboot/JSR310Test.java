@@ -13,6 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class JSR310Test {
 
     @Test  // 예제 1, 2: 1일 후 구하기
+    public void shouldGetCurrentDay() {
+        ZoneId seoul = ZoneId.of("Asia/Seoul");
+        LocalDate theDay = LocalDate.now(seoul);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        assertThat(theDay.format(formatter));
+    }
+
+    @Test  // 예제 1, 2: 1일 후 구하기
     public void shouldGetAfterOneDay() {
         LocalDate theDay = IsoChronology.INSTANCE.date(1582, 10, 4);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
