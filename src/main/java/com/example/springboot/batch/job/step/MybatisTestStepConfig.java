@@ -1,6 +1,7 @@
 package com.example.springboot.batch.job.step;
 
 import com.example.springboot.batch.job.parameter.CreateJobParameter;
+import com.example.springboot.batch.mapper.WriteMapper;
 import com.example.springboot.batch.model.Read;
 import com.example.springboot.batch.model.Write;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class MybatisTestStepConfig {
     private final SqlSessionFactory sqlSessionFactory;
     private final SqlSessionTemplate sqlSessionTemplate;
     private final CreateJobParameter jobParameter;
+    private final WriteMapper writeMapper;
 
     @Bean
     @JobScope
@@ -36,7 +38,7 @@ public class MybatisTestStepConfig {
         return this.stepBuilderFactory
                 .get("mybatisTestTaskletStep")
                 .tasklet((stepContribution, chunkContext) -> {
-                    sqlSessionTemplate.delete("com.example.springboot.batch.mapper.WriteMapper.delete");
+                    writeMapper.delete();
                     return RepeatStatus.FINISHED;
                 })
                 .build();
@@ -78,6 +80,7 @@ public class MybatisTestStepConfig {
     public ItemProcessor<Read, Write> mybatisTestProcessor(){
         log.info("mybatisTestProcessor... ");
         return read -> {
+            writeMapper.delete();
             Write write = new Write();
             write.setWriteId(read.getReadId());
             write.setWriteName(read.getReadName() + "님");

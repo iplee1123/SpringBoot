@@ -21,8 +21,9 @@ public class MybatisTestJobConfig {
     public Job mybatisTestJob() {
         return jobBuilderFactory
                 .get("mybatisTestJob")
-                .start(mybatisTestTaskletStep) // write_table 테이블 데이터 초기화
-                .next(mybatisTestChunkStep) // read_table -> write_table
+                //.start(mybatisTestTaskletStep) // write_table 테이블 데이터 초기화
+                //.next(mybatisTestChunkStep) // read_table -> write_table
+                .start(mybatisTestChunkStep)
                 .build();
     }
 

@@ -13,5 +13,5 @@ public interface WriteMapper {
     int save(@Param("write") Write write);
 
     @Delete("delete from write_table where 1 = 1")
-    int delete(@Param("write") Write write);
+    int delete();
 }
