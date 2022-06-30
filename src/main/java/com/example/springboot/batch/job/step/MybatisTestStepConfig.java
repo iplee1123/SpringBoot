@@ -62,6 +62,8 @@ public class MybatisTestStepConfig {
         log.info("mybatisTestReader... ");
         log.info("startDate : " + jobParameter.getStartDate());
         log.info("jobName : " + jobParameter.getJobName());
+        writeMapper.delete();
+
 //        Map<String, Object> parameterValues = new HashMap<>();
 //        parameterValues.put("readId", "1");
         return new MyBatisPagingItemReaderBuilder<Read>()
@@ -80,7 +82,6 @@ public class MybatisTestStepConfig {
     public ItemProcessor<Read, Write> mybatisTestProcessor(){
         log.info("mybatisTestProcessor... ");
         return read -> {
-            writeMapper.delete();
             Write write = new Write();
             write.setWriteId(read.getReadId());
             write.setWriteName(read.getReadName() + "님");

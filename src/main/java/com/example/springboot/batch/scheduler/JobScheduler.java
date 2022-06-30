@@ -29,7 +29,7 @@ public class JobScheduler {
     private final Job mybatisTestJob;
 
     @Scheduled(cron = "1 * * * * *")
-    public void runJob() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+    public void runMybatisTestJob() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 
         // spring batch meta table 생성을 위한 schema file
         // ex) schema-h2.sql
