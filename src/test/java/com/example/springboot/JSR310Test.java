@@ -12,6 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class JSR310Test {
 
+    @Test  // 프로시져 호출 테스트
+    public void procedureCallTest() {
+
+    }
     @Test  // 예제 1, 2: 1일 후 구하기
     public void shouldGetCurrentDay() {
         ZoneId seoul = ZoneId.of("Asia/Seoul");

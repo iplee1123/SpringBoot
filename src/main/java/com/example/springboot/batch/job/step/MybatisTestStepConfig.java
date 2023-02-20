@@ -1,7 +1,7 @@
 package com.example.springboot.batch.job.step;
 
 import com.example.springboot.batch.job.parameter.CreateJobParameter;
-import com.example.springboot.batch.mapper.WriteMapper;
+import com.example.springboot.batch.mapper.write.WriteMapper;
 import com.example.springboot.batch.model.Read;
 import com.example.springboot.batch.model.Write;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +28,9 @@ public class MybatisTestStepConfig {
 
     private final StepBuilderFactory stepBuilderFactory;
     private final SqlSessionFactory sqlSessionFactory;
-    private final SqlSessionTemplate sqlSessionTemplate;
     private final CreateJobParameter jobParameter;
     private final WriteMapper writeMapper;
+
 
     @Bean
     @JobScope
@@ -38,7 +38,7 @@ public class MybatisTestStepConfig {
         return this.stepBuilderFactory
                 .get("mybatisTestTaskletStep")
                 .tasklet((stepContribution, chunkContext) -> {
-                    writeMapper.delete();
+                    //writeMapper.delete();
                     return RepeatStatus.FINISHED;
                 })
                 .build();
@@ -62,14 +62,14 @@ public class MybatisTestStepConfig {
         log.info("mybatisTestReader... ");
         log.info("startDate : " + jobParameter.getStartDate());
         log.info("jobName : " + jobParameter.getJobName());
-        writeMapper.delete();
+       // writeMapper.delete();
 
 //        Map<String, Object> parameterValues = new HashMap<>();
 //        parameterValues.put("readId", "1");
         return new MyBatisPagingItemReaderBuilder<Read>()
                 .pageSize(10)
                 .sqlSessionFactory(sqlSessionFactory)
-                .queryId("com.example.springboot.batch.mapper.ReadMapper.findAll")
+                .queryId("com.example.springboot.batch.mapper.read.ReadMapper.findAll")
                 //.parameterValues(parameterValues)
                 .build();
 
@@ -95,7 +95,7 @@ public class MybatisTestStepConfig {
         log.info("mybatisTestWriter... ");
         return new MyBatisBatchItemWriterBuilder<Write>()
                 .sqlSessionFactory(sqlSessionFactory)
-                .statementId("com.example.springboot.batch.mapper.WriteMapper.save")
+                .statementId("com.example.springboot.batch.mapper.write.WriteMapper.save")
                 .build();
     }
 }

@@ -1,5 +1,6 @@
-package com.example.springboot.batch.mapper;
+package com.example.springboot.batch.mapper.write;
 
+import com.example.springboot.batch.model.ContractCompany;
 import com.example.springboot.batch.model.Write;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -9,9 +10,5 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface WriteMapper {
 
-    @Insert("insert into write_table (write_id, write_name) values (#{writeId}, #{writeName})")
-    int save(@Param("write") Write write);
-
-    @Delete("delete from write_table where 1 = 1")
-    int delete();
+    void insertContractCompany(ContractCompany contractCompany);
 }

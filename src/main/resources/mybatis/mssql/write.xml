@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.springboot.batch.mapper.write.WriteMapper">
+
+    <insert id="insertContractCompany" parameterType="com.example.springboot.batch.model.ContractCompany">
+        insert into CONTRACT_COMPANY (
+            SYS_ID
+            , VENDOR_CODE
+            , ADD_DATE
+            , ADD_TIME
+            , FORM_TYPE
+            , FORM_SEQ
+            , AGREE_TYPE
+            , AGREE_DATE
+            , AGREE_TIME
+            , SIGN_VALUE
+            , SIGN_TYPE
+            , WRITER_ID
+            , FORM_CONTENT
+            , NAME_LOC
+            , SIGN_VALUE_CLOB
+            , MIG_YN
+            , MIG_DT
+            , FORM_NAME
+            , DESCRIPTION
+        ) values (
+            #{sysId}
+            , #{vendorCode}
+            , #{addDate}
+            , #{addTime}
+            , #{formType}
+            , #{formSeq}
+            , #{agreeType}
+            , #{agreeDate}
+            , #{agreeTime}
+            , #{signValue}
+            , #{signType}
+            , #{writerId}
+            , #{formContent}
+            , #{nameLoc}
+            , #{signValueClob}
+            , 'Y'
+            , getdate()
+            , #{formName}
+            , #{description}
+        )
+    </insert>
+</mapper>
