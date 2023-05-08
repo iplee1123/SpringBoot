@@ -23,7 +23,7 @@ public class MybatisTestJobConfig {
     @Bean
     public Job mybatisTestJob() {
         return jobBuilderFactory
-                .get("mybatisTestJob")
+                .get("mybatisTestJob2")
                 //.start(mybatisTestTaskletStep) // write_table 테이블 데이터 초기화
                 //.next(mybatisTestChunkStep) // read_table -> write_table
                 //.start(mybatisTestChunkStep)

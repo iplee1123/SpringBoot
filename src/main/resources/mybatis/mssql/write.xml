@@ -46,4 +46,82 @@
             , #{description}
         )
     </insert>
+
+    <insert id="insert_ESZCTHD_IF">
+        INSERT INTO IF_ESZCTHD
+        (
+                IF_ID
+              , IF_DATE
+              , BELNR
+              , GJAHR
+              , LIFNR
+              , BUPLA
+              , ZCRD
+              , BLDAT
+              , WRBTR
+              , WMWST
+              , WAERS
+              , GRUND
+          )
+          VALUES
+        <foreach collection="list" index="index" item="item" separator=",">
+          (
+              #{item.IF_ID}
+            , getdate()
+            , #{item.BELNR}
+            , #{item.GJAHR}
+            , #{item.LIFNR}
+            , #{item.BUPLA}
+            , #{item.ZCRD}
+            , REPLACE(#{item.BLDAT}, '-', '')
+            , #{item.WRBTR}
+            , #{item.WMWST}
+            , #{item.WAERS}
+            , #{item.GRUND}
+          )
+        </foreach>
+    </insert>
+
+    <insert id="insert_ESZCTDT_IF">
+        INSERT INTO IF_ESZCTDT
+        (
+                IF_ID
+              , IF_DATE
+              , BELNR
+              , GJAHR
+              , BUZEI
+              , LIFNR
+              , LFBNR
+              , EBELN
+              , EBELP
+              , MATNR
+              , MAKTX
+              , MENGE
+              , NETPR
+              , WRBTR
+              , WMWST
+              , BSTME
+          )
+          VALUES
+        <foreach collection="list" index="index" item="item" separator=",">
+          (
+              #{item.IF_ID}
+            , getdate()
+            , #{item.BELNR}
+            , #{item.GJAHR}
+            , #{item.BUZEI}
+            , #{item.LIFNR}
+            , #{item.LFBNR}
+            , #{item.EBELN}
+            , #{item.EBELP}
+            , #{item.MATNR}
+            , #{item.MAKTX}
+            , #{item.MENGE}
+            , #{item.NETPR}
+            , #{item.WRBTR}
+            , #{item.WMWST}
+            , #{item.BSTME}
+          )
+        </foreach>
+    </insert>
 </mapper>

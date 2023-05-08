@@ -1,11 +1,11 @@
 server:
   port: 10000
 
-#logging:
+logging:
 #  file:
 #    name: ${user.dir}/log/test.log  # 로깅 파일 위치이다.
-#  level:  # 각 package 별로 로깅 레벨을 지정할 수 있다.
-#    com.example.springboot.batch : debug
+  level:  # 각 package 별로 로깅 레벨을 지정할 수 있다.
+    com.example.springboot.batch : debug
 spring:
   datasource:
     h2:
@@ -21,13 +21,18 @@ spring:
     oracle:
       jdbcUrl: jdbc:oracle:thin:@165.243.45.87:1521:MTRONDEV
       driverClassName: oracle.jdbc.driver.OracleDriver
-      username: emro
-      password: emro
+      username: wisemaster
+      password: wisemaster01
     mssql:
-      jdbcUrl: jdbc:sqlserver://10.155.9.50:1433;databaseName=EPRO
+# 개발
+#      jdbcUrl: jdbc:sqlserver://10.155.9.50:1433;databaseName=EPRO
+# 운영
+      jdbcUrl: jdbc:sqlserver://10.155.3.31:1433;databaseName=EPRO
       driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
       username: emro
-      password: lsm@dminPassw0rd.
+      # password: lsm@dminPassw0rd.
+      # 운영
+      password: lsmadmin00!!
   batch:
     job:
       enabled: true
